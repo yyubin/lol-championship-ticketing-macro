@@ -49,6 +49,7 @@ li = [0 for i in range(8)]
 flag = False
 def ticketing():
     global flag
+    time.sleep(1)
     driver.get("https://poticket.interpark.com/SportsBook/BookMain.asp?GroupCode=23010160")
 
     driver.switch_to.frame('ifrmSeat')
@@ -58,91 +59,14 @@ def ticketing():
 
     for i in li:
         if i.get_attribute('rc') != '0':
-            pyautogui.keyDown('command')
-            pyautogui.keyDown('option')
-            pyautogui.press('i')
-            pyautogui.keyUp('option')
-            pyautogui.keyUp('command')
-
-            pyautogui.moveTo(1200, 420)
-            pyautogui.click()
-
-            pyautogui.keyDown('command')
-            pyautogui.press('f')
-            pyautogui.keyUp('command')
-
-            # captchSliderLayer
-
-            pyautogui.press('c')
-            pyautogui.press('a')
-            pyautogui.press('p')
-            pyautogui.press('t')
-            pyautogui.press('c')
-            pyautogui.press('h')
-            pyautogui.press('s')
-            pyautogui.press('l')
-            pyautogui.press('i')
-            pyautogui.press('d')
-            pyautogui.press('e')
-            pyautogui.press('r')
-
-            pyautogui.moveTo(1200, 420)
-            time.sleep(0.01)
-            pyautogui.click()
-            pyautogui.press('enter')
-            pyautogui.press('tab')
-
-            pyautogui.press('=')
-            pyautogui.press('d')
-            pyautogui.press('i')
-            pyautogui.press('s')
-            pyautogui.press('p')
-            pyautogui.press('l')
-            pyautogui.press('a')
-            pyautogui.press('y')
-            pyautogui.keyDown('shift')
-            pyautogui.press(';')
-            pyautogui.keyUp('shift')
-            pyautogui.press('n')
-            pyautogui.press('o')
-            pyautogui.press('n')
-            pyautogui.press('e')
-            pyautogui.press(';')
-            pyautogui.press('enter')
-
+            slider = driver.find_element(By.CLASS_NAME, "captchSliderLayer")
+            driver.execute_script("arguments[0].style.display = 'none';", slider)
             i.click()
             flag = True
             driver.find_element(By.XPATH, "//div[@class='twoBtn']/a[1]").click()
 
-            pyautogui.moveTo(1200, 420)
-            pyautogui.click()
-            pyautogui.keyDown('command')
-            pyautogui.press('f')
-            pyautogui.keyUp('command')
-
-            pyautogui.press('f')
-            pyautogui.press('n')
-            pyautogui.press('c')
-            pyautogui.press('h')
-            pyautogui.press('e')
-            pyautogui.press('c')
-            pyautogui.press('k')
-            pyautogui.press('enter')
-
-            pyautogui.moveTo(1200, 420)
-            time.sleep(0.01)
-            pyautogui.click()
-            pyautogui.press('enter')
-            pyautogui.press('tab')
-
-            pyautogui.press('right')
-            pyautogui.press('left')
-            pyautogui.press('left')
-            pyautogui.keyDown('shift')
-            pyautogui.press('o')
-            pyautogui.press('k')
-            pyautogui.keyUp('shift')
-            pyautogui.press('enter')
+            blank = driver.find_element(By.XPATH, "//*[@id='divRecaptcha']/div[1]/div[4]/a")
+            driver.execute_script("arguments[0].setAttribute('onclick', 'fnCheckOK();')", blank)
 
             driver.find_element(By.XPATH, '//*[@id="divRecaptcha"]/div[1]/div[4]/a').click()
             driver.find_element(By.XPATH, "//div[@class='twoBtn']/a[1]").click()
@@ -166,11 +90,13 @@ def ticketing():
 
             time.sleep(100000)
 
-    pyautogui.keyDown('command')
-    pyautogui.keyDown('option')
-    pyautogui.press('i')
-    pyautogui.keyUp('option')
-    pyautogui.keyUp('command')
-
 while not flag:
     ticketing()
+
+
+
+
+
+
+#https://ticket.interpark.com/Gate/TPLogOut.asp?From=T&tid1=main_gnb&tid2=right_top&tid3=logout&tid4=logout
+#https://poticket.interpark.com/SportsBook/BookMain.asp?GroupCode=23010160
